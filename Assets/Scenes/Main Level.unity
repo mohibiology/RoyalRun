@@ -148,8 +148,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b27d8a7c6f795a1459f68fe8c08319bf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  obstaclePrefab: {fileID: 2260823979996172911, guid: 27e13cb8db10032458a550628b77b44f, type: 3}
-  ObstacleSpawnTime: 1
+  obstaclePrefabs:
+  - {fileID: 7532254191658030584, guid: 2f46ec4600ba72a4391d8c9a41ad3517, type: 3}
+  - {fileID: 538404298750439176, guid: b4c5064a4816c5240b118a1985084434, type: 3}
+  - {fileID: 6778307918204047835, guid: 61d0974b9380afa4abcf06e45691813e, type: 3}
+  ObstacleSpawnTime: 3
+  obstacleParent: {fileID: 2094972759}
+  spawnWidth: 0
 --- !u!4 &218840509
 Transform:
   m_ObjectHideFlags: 0
@@ -159,7 +164,7 @@ Transform:
   m_GameObject: {fileID: 218840507}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 5, z: 30}
+  m_LocalPosition: {x: 0, y: 1, z: 30}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -224,8 +229,8 @@ Camera:
     width: 1
     height: 1
   near clip plane: 0.3
-  far clip plane: 1000
-  field of view: 22
+  far clip plane: 80
+  field of view: 27
   orthographic: 0
   orthographic size: 5
   m_Depth: -1
@@ -251,13 +256,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 330585543}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.45, z: -10}
+  m_LocalRotation: {x: 0.034725077, y: 0, z: 0, w: 0.9993969}
+  m_LocalPosition: {x: 0, y: 2.5, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 3.98, y: 0, z: 0}
 --- !u!114 &330585547
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -486,9 +491,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   chunkPrefab: {fileID: 1668306534667346061, guid: 52fafee5258977c40b6d53e9d6bccf3b, type: 3}
   chunkParent: {fileID: 1715660334}
-  startingChunksAmount: 10
+  startingChunksAmount: 20
   chunkLength: 10
-  moveSpeed: 10
+  moveSpeed: 20
 --- !u!4 &421266968
 Transform:
   m_ObjectHideFlags: 0
@@ -769,6 +774,37 @@ Rigidbody:
   m_Interpolate: 1
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!1 &2094972758
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2094972759}
+  m_Layer: 0
+  m_Name: Obstacle Parent
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2094972759
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2094972758}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
@@ -780,3 +816,4 @@ SceneRoots:
   - {fileID: 421266968}
   - {fileID: 1715660334}
   - {fileID: 218840509}
+  - {fileID: 2094972759}
