@@ -3,32 +3,57 @@ using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour
 {
-    Vector2 movement;
     Rigidbody rigidBody;
-    [SerializeField] float controlSpeed = 10f;
-    [SerializeField] float xClamp = 3f;
-    [SerializeField] float zClamp = 2f;
-    private void Awake() 
+
+    [SerializeField] float laneDistance = 2.5f; // Distance between lanes
+    [SerializeField] float laneSwitchSpeed = 10f; // Speed to switch lanes
+
+    private int currentLane = 1; // 0 = Left, 1 = Middle, 2 = Right
+    private Vector3 targetPosition;
+
+    private void Awake()
     {
         rigidBody = GetComponent<Rigidbody>();
     }
-    
-    void FixedUpdate()
+
+    private void Start()
     {
-        ProcessTranslation();
+        // Initialize the target position to the middle lane
+        targetPosition = rigidBody.position;
     }
 
-    private void ProcessTranslation()
+    private void FixedUpdate()
     {
+        ProcessMovement();
+    }
+
+    private void ProcessMovement()
+    {
+        // Smoothly move the player to the target lane position
         Vector3 currentPosition = rigidBody.position;
-        Vector3 moveDirection = new Vector3(movement.x,0,movement.y);
-        Vector3 newPosition = currentPosition + moveDirection * (controlSpeed * Time.fixedDeltaTime);
-        newPosition.x = Mathf.Clamp(newPosition.x,-xClamp,xClamp);
-        newPosition.z = Mathf.Clamp(newPosition.z,-zClamp,zClamp);
+        Vector3 newPosition = Vector3.MoveTowards(currentPosition, targetPosition, laneSwitchSpeed * Time.fixedDeltaTime);
         rigidBody.MovePosition(newPosition);
     }
+
     public void Move(InputAction.CallbackContext context)
     {
-        movement=context.ReadValue<Vector2>();
+        if (context.performed)
+        {
+            float input = context.ReadValue<Vector2>().x; // Only consider horizontal input
+
+            if (input > 0 && currentLane < 2)
+            {
+                // Move right
+                currentLane++;
+            }
+            else if (input < 0 && currentLane > 0)
+            {
+                // Move left
+                currentLane--;
+            }
+
+            // Update the target position based on the current lane
+            targetPosition = new Vector3((currentLane-1) * laneDistance, rigidBody.position.y, rigidBody.position.z);
+        }
     }
 }
