@@ -493,7 +493,7 @@ MonoBehaviour:
   chunkParent: {fileID: 1715660334}
   startingChunksAmount: 20
   chunkLength: 10
-  moveSpeed: 10
+  moveSpeed: 15
 --- !u!4 &421266968
 Transform:
   m_ObjectHideFlags: 0
@@ -546,7 +546,7 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 300, y: 1, z: 500}
+  m_Size: {x: 1000, y: 1, z: 1000}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!4 &464017692
 Transform:
@@ -773,6 +773,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   laneDistance: 2.5
   laneSwitchSpeed: 10
+  animator: {fileID: 1671786038}
 --- !u!114 &1731853365
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -868,7 +869,7 @@ CapsuleCollider:
   m_Radius: 0.35
   m_Height: 2.06
   m_Direction: 1
-  m_Center: {x: 0, y: 0.89, z: 0}
+  m_Center: {x: 0, y: 0.94, z: 0}
 --- !u!114 &1731853368
 MonoBehaviour:
   m_ObjectHideFlags: 0

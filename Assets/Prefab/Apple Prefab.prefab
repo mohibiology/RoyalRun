@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4020372067550759424}
   - component: {fileID: 4001486573308402611}
-  - component: {fileID: 3568960754817940164}
+  - component: {fileID: -2736045228931653834}
   m_Layer: 0
   m_Name: Apple Prefab
   m_TagString: Untagged
@@ -57,7 +57,7 @@ CapsuleCollider:
   m_Height: 1
   m_Direction: 1
   m_Center: {x: 0, y: 0.83, z: 0}
---- !u!114 &3568960754817940164
+--- !u!114 &-2736045228931653834
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -66,9 +66,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 1960865332010092058}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: eb5b8f75b560e604092e7495a6d18a38, type: 3}
+  m_Script: {fileID: 11500000, guid: 2d588c3fc26783749ba0e172bd070ded, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  rotationSpeed: 100
 --- !u!1 &2269659344154804486
 GameObject:
   m_ObjectHideFlags: 0

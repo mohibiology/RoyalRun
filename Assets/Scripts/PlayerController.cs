@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -7,6 +8,9 @@ public class PlayerController : MonoBehaviour
 
     [SerializeField] float laneDistance = 2.5f; // Distance between lanes
     [SerializeField] float laneSwitchSpeed = 10f; // Speed to switch lanes
+    [SerializeField] Animator animator;
+
+    CapsuleCollider playerCollider;
 
     private int currentLane = 1; // 0 = Left, 1 = Middle, 2 = Right
     private Vector3 targetPosition;
@@ -14,6 +18,7 @@ public class PlayerController : MonoBehaviour
     private void Awake()
     {
         rigidBody = GetComponent<Rigidbody>();
+        playerCollider = GetComponent<CapsuleCollider>();
     }
 
     private void Start()
@@ -39,7 +44,8 @@ public class PlayerController : MonoBehaviour
     {
         if (context.performed)
         {
-            float input = context.ReadValue<Vector2>().x; // Only consider horizontal input
+            float input = context.ReadValue<Vector2>().x;
+            float jumpInput = context.ReadValue<Vector2>().y; // Only consider horizontal input
 
             if (input > 0 && currentLane < 2)
             {
@@ -54,6 +60,21 @@ public class PlayerController : MonoBehaviour
 
             // Update the target position based on the current lane
             targetPosition = new Vector3((currentLane-1) * laneDistance, rigidBody.position.y, rigidBody.position.z);
+
+            if(jumpInput > 0)
+            {
+                animator.SetTrigger("Jump");
+                StartCoroutine(AdjustColliderHeight());
+            }
         }
     }
+        private IEnumerator AdjustColliderHeight()
+        {
+            Vector3 originalSize = playerCollider.center;
+            playerCollider.center = new Vector3(originalSize.x, 2f, originalSize.z );
+
+            yield return new WaitForSeconds(0.5f); // Adjust duration as needed
+
+            playerCollider.center = originalSize; 
+        }
 }

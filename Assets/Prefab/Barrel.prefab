@@ -154,12 +154,18 @@ PrefabInstance:
       value: Barrel
       objectReference: {fileID: 0}
     - target: {fileID: 2768735285193564314, guid: 27e13cb8db10032458a550628b77b44f, type: 3}
+      propertyPath: m_Size.y
+      value: 0.4881631
+      objectReference: {fileID: 0}
+    - target: {fileID: 2768735285193564314, guid: 27e13cb8db10032458a550628b77b44f, type: 3}
+      propertyPath: m_Center.y
+      value: 0.032440603
+      objectReference: {fileID: 0}
+    - target: {fileID: 2768735285193564314, guid: 27e13cb8db10032458a550628b77b44f, type: 3}
       propertyPath: m_Material
       value: 
       objectReference: {fileID: 13400000, guid: 35cc6026eb1becd4982ea830bddb16f3, type: 2}
-    m_RemovedComponents:
-    - {fileID: 2768735285193564314, guid: 27e13cb8db10032458a550628b77b44f, type: 3}
-    - {fileID: 4835191152554922084, guid: 27e13cb8db10032458a550628b77b44f, type: 3}
+    m_RemovedComponents: []
     m_RemovedGameObjects:
     - {fileID: 4105479354310290893, guid: 27e13cb8db10032458a550628b77b44f, type: 3}
     m_AddedGameObjects:
