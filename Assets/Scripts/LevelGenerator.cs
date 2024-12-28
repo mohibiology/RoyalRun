@@ -17,6 +17,14 @@ public class LevelGenerator : MonoBehaviour
     {
         MoveChunks();
     }
+
+    public void AdjustMoveSpeed(float speed)
+    {
+        moveSpeed+=speed;
+        if(moveSpeed < 4f)
+            moveSpeed=4f;
+        Physics.gravity = new Vector3(Physics.gravity.x,Physics.gravity.y ,Physics.gravity.z - speed);
+    }
     void SpawnChunks()
     {
         for (int i = 0; i < startingChunksAmount; i++)

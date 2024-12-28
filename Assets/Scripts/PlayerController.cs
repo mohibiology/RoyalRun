@@ -1,4 +1,5 @@
 using System.Collections;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -14,6 +15,8 @@ public class PlayerController : MonoBehaviour
 
     private int currentLane = 1; // 0 = Left, 1 = Middle, 2 = Right
     private Vector3 targetPosition;
+
+    private bool isAdjustingCollider = false;
 
     private void Awake()
     {
@@ -70,11 +73,16 @@ public class PlayerController : MonoBehaviour
     }
         private IEnumerator AdjustColliderHeight()
         {
+            if(isAdjustingCollider)
+                yield break;
+
+            isAdjustingCollider = true;
             Vector3 originalSize = playerCollider.center;
             playerCollider.center = new Vector3(originalSize.x, 2f, originalSize.z );
 
             yield return new WaitForSeconds(0.5f); // Adjust duration as needed
 
             playerCollider.center = originalSize; 
+            isAdjustingCollider = false;
         }
 }

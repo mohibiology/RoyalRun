@@ -229,7 +229,7 @@ Camera:
     width: 1
     height: 1
   near clip plane: 0.3
-  far clip plane: 80
+  far clip plane: 160
   field of view: 27
   orthographic: 0
   orthographic size: 5
@@ -491,8 +491,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   chunkPrefab: {fileID: 1668306534667346061, guid: 52fafee5258977c40b6d53e9d6bccf3b, type: 3}
   chunkParent: {fileID: 1715660334}
-  startingChunksAmount: 20
-  chunkLength: 10
+  startingChunksAmount: 30
+  chunkLength: 20
   moveSpeed: 15
 --- !u!4 &421266968
 Transform:
@@ -884,6 +884,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   animator: {fileID: 1671786038}
   collisionCooldown: 1
+  decreaseMoveSpeed: -2
 --- !u!1 &2094972758
 GameObject:
   m_ObjectHideFlags: 0
