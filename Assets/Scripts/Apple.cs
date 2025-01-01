@@ -3,11 +3,11 @@ using UnityEngine;
 public class Apple : Pickup
 {
     [SerializeField] float increaseMoveSpeed = 2f;
-    LevelGenerator  levelGenerator;
+    LevelGenerator levelGenerator;
 
-    private void Start() 
+    public void Init(LevelGenerator levelGenerator) 
     {
-        levelGenerator = FindFirstObjectByType<LevelGenerator>();
+        this.levelGenerator = levelGenerator;
     }
     protected override void OnPickup()
     {

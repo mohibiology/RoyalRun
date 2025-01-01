@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SocialPlatforms.Impl;
 
 public class LevelGenerator : MonoBehaviour
 {
@@ -7,6 +8,7 @@ public class LevelGenerator : MonoBehaviour
     [SerializeField] CameraController cameraController;
     [SerializeField] GameObject chunkPrefab;
     [SerializeField] Transform chunkParent;
+    [SerializeField] ScoreManager scoreManager;
     [Header("LevelSettings")]
     [SerializeField] int startingChunksAmount=10;
     [Tooltip("This value should be the same as chunk prefab length")]
@@ -51,8 +53,10 @@ public class LevelGenerator : MonoBehaviour
     {
         float spawnPositionZ = CalculateSpawnPositionZ();
         Vector3 zAxis = new Vector3(transform.position.x, transform.position.y, spawnPositionZ);
-        GameObject newChunk = Instantiate(chunkPrefab, zAxis, Quaternion.identity, chunkParent);
-        chunks.Add(newChunk);
+        GameObject newChunkGO = Instantiate(chunkPrefab, zAxis, Quaternion.identity, chunkParent);
+        chunks.Add(newChunkGO);
+        Chunk newChunk = newChunkGO.GetComponent<Chunk>();
+        newChunk.Init(this, scoreManager);
     }
 
     float CalculateSpawnPositionZ()
