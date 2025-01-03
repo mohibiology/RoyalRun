@@ -9,7 +9,9 @@ public class GameManager : MonoBehaviour
     [SerializeField] float startTime =  10f;
     float timeLeft;
     bool gameOver = false;
-
+    // public bool GameOver { get { return gameOver; } }
+    // public bool GameOver {get; private set;}
+    public bool GameOver => gameOver;
     private void Start() 
     {
         timeLeft = startTime;
@@ -21,10 +23,10 @@ public class GameManager : MonoBehaviour
         timeText.text = timeLeft.ToString("F1");
         if (timeLeft <= 0f)
         {
-            GameOver();
+            PlayerGameOver();
         }
     }
-    void GameOver()
+    void PlayerGameOver()
     {
         gameOver = true;
         playerController.enabled = false;
