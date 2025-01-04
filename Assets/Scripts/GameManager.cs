@@ -18,7 +18,15 @@ public class GameManager : MonoBehaviour
     }
     void Update()
     {
-        if(gameOver) return;
+        DecreaseTime();
+    }
+    public void IncreaseTime(float amount)
+    {
+        timeLeft+=amount;
+    }
+    private void DecreaseTime()
+    {
+        if (gameOver) return;
         timeLeft -= Time.deltaTime;
         timeText.text = timeLeft.ToString("F1");
         if (timeLeft <= 0f)
@@ -26,6 +34,7 @@ public class GameManager : MonoBehaviour
             PlayerGameOver();
         }
     }
+
     void PlayerGameOver()
     {
         gameOver = true;
