@@ -152,7 +152,8 @@ MonoBehaviour:
   - {fileID: 7532254191658030584, guid: 2f46ec4600ba72a4391d8c9a41ad3517, type: 3}
   - {fileID: 538404298750439176, guid: b4c5064a4816c5240b118a1985084434, type: 3}
   - {fileID: 6778307918204047835, guid: 61d0974b9380afa4abcf06e45691813e, type: 3}
-  ObstacleSpawnTime: 2
+  - {fileID: 2471907071583825005, guid: c3da04ab8f0374e40bf67602fa574c8c, type: 3}
+  ObstacleSpawnTime: 3
   obstacleParent: {fileID: 2094972759}
   spawnWidth: 2.5
 --- !u!4 &218840509
@@ -164,7 +165,7 @@ Transform:
   m_GameObject: {fileID: 218840507}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 5, z: 50}
+  m_LocalPosition: {x: 0, y: 5, z: 110}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -230,7 +231,7 @@ Camera:
     width: 1
     height: 1
   near clip plane: 0.3
-  far clip plane: 200
+  far clip plane: 100
   field of view: 60
   orthographic: 0
   orthographic size: 5
@@ -6496,6 +6497,7 @@ GameObject:
   - component: {fileID: 2096065916}
   - component: {fileID: 2096065917}
   - component: {fileID: 2096065919}
+  - component: {fileID: 2096065920}
   - component: {fileID: 2096065918}
   m_Layer: 0
   m_Name: CinemachineCamera
@@ -6547,7 +6549,7 @@ MonoBehaviour:
     FieldOfView: 60
     OrthographicSize: 5
     NearClipPlane: 0.3
-    FarClipPlane: 200
+    FarClipPlane: 100
     Dutch: 0
     ModeOverride: 0
     PhysicalProperties:
@@ -6611,6 +6613,29 @@ MonoBehaviour:
     Time: 0
     Smoothing: 0
     IgnoreY: 0
+--- !u!114 &2096065920
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2096065915}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 00b2d199b96b516448144ab30fb26aed, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ApplyAfter: 2
+  ChannelMask: 1
+  Gain: 1
+  Use2DDistance: 0
+  UseCameraSpace: 1
+  ReactionSettings:
+    m_SecondaryNoise: {fileID: 0}
+    AmplitudeGain: 1
+    FrequencyGain: 1
+    Duration: 1
+    m_NoiseOffsets: {x: 0, y: 0, z: 0}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
