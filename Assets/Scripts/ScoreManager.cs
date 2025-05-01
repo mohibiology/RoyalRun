@@ -13,4 +13,8 @@ public class ScoreManager : MonoBehaviour
         score+=amount;
         scoreText.text=score.ToString();
     }
+    public int getScore()
+    {
+        return score;
+    }
 }

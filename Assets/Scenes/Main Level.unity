@@ -281,7 +281,6 @@ MonoBehaviour:
   - {fileID: 7532254191658030584, guid: 2f46ec4600ba72a4391d8c9a41ad3517, type: 3}
   - {fileID: 538404298750439176, guid: b4c5064a4816c5240b118a1985084434, type: 3}
   - {fileID: 6778307918204047835, guid: 61d0974b9380afa4abcf06e45691813e, type: 3}
-  - {fileID: 2471907071583825005, guid: c3da04ab8f0374e40bf67602fa574c8c, type: 3}
   ObstacleSpawnTime: 3
   obstacleParent: {fileID: 2094972759}
   spawnWidth: 2.5
@@ -1138,7 +1137,8 @@ MonoBehaviour:
   playerController: {fileID: 1731853364}
   timeText: {fileID: 661281222}
   gameOverText: {fileID: 1158995387}
-  startTime: 20
+  startTime: 5
+  scoreManager: {fileID: 843055445}
 --- !u!1 &1015797182
 GameObject:
   m_ObjectHideFlags: 0
