@@ -14,6 +14,7 @@ public class GameOverManager : MonoBehaviour
     {
         Time.timeScale = 1f; // Reset time scale just in case
         int finalScore = PlayerPrefs.GetInt("FinalScore", 0);
+        string playerName = PlayerPrefs.GetString("PlayerName", "Guest");
         scoreText.text = finalScore.ToString();
         retryButton.onClick.AddListener(RetryGame);
         // homeButton.onClick.AddListener(GoHome);

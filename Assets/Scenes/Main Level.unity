@@ -1138,7 +1138,7 @@ MonoBehaviour:
   playerController: {fileID: 1731853364}
   timeText: {fileID: 661281222}
   gameOverText: {fileID: 1158995387}
-  startTime: 5
+  startTime: 10
   scoreManager: {fileID: 843055445}
 --- !u!1 &1015797182
 GameObject:
