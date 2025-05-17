@@ -4,9 +4,15 @@ using Mono.Data.Sqlite;
 using Unity.VisualScripting;
 using System;
 using UnityEditor.MemoryProfiler;
+using TMPro;
+using UnityEngine.UI;
 public class DatabaseManager : MonoBehaviour
 {
-
+    [SerializeField] GameObject scoreBoardPanel;
+    [SerializeField] TMP_Text player;
+    [SerializeField] TMP_Text score;
+    [SerializeField] Button LeaderBoard;
+    [SerializeField] Button backButton;
     string dbName = "URI=file:ScoreRecord.db";
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -15,22 +21,48 @@ public class DatabaseManager : MonoBehaviour
         int finalScore = PlayerPrefs.GetInt("FinalScore", 0);
         CreateDB();
         AddScore(playerName, finalScore);
+        LeaderBoard.onClick.AddListener(ShowPanel);
+        backButton.onClick.AddListener(ClosePanel);
+        
+    }
+    void ShowPanel()
+    {
+        scoreBoardPanel.gameObject.SetActive(true);
         DisplayScore();
+    }
+    void ClosePanel()
+    {
+        scoreBoardPanel.gameObject.SetActive(false);
     }
 
     private void DisplayScore()
     {
+        player.text = "";
+        score.text = "";
+
         using (var connection = new SqliteConnection(dbName))
         {
             connection.Open();
-            using (var command = connection.CreateCommand())
+            using (var command1 = connection.CreateCommand())
             {
-                command.CommandText = "SELECT * FROM scoreboard";
-                using (IDataReader reader = command.ExecuteReader())
+                command1.CommandText = "SELECT name FROM (SELECT name, MAX(score) as max_score FROM scoreboard GROUP BY name) AS grouped_scores ORDER BY max_score DESC LIMIT 10;";
+                using (IDataReader reader = command1.ExecuteReader())
                 {
                     while (reader.Read())
                     {
-                        Debug.Log("Name: " + reader["name"] + "\tScore: " + reader["score"]);
+                        player.text += reader["name"] + "\n";
+                    }
+                    reader.Close();
+                }
+            }
+            using (var command2 = connection.CreateCommand())
+            {
+                command2.CommandText = "SELECT MAX(score) as max_score FROM scoreboard GROUP BY name ORDER BY max_score DESC LIMIT 10;";
+                using (IDataReader reader = command2.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        score.text += reader["max_score"] + "\n";
                     }
                     reader.Close();
                 }
