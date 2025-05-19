@@ -45,7 +45,7 @@ public class DatabaseManager : MonoBehaviour
             connection.Open();
             using (var command1 = connection.CreateCommand())
             {
-                command1.CommandText = "SELECT name FROM (SELECT name, MAX(score) as max_score FROM scoreboard GROUP BY name) AS grouped_scores ORDER BY max_score DESC LIMIT 10;";
+                command1.CommandText = "SELECT UPPER(name) AS name FROM (SELECT name, MAX(score) AS max_score FROM scoreboard GROUP BY UPPER(name)) AS grouped_scores ORDER BY max_score DESC LIMIT 10;";
                 using (IDataReader reader = command1.ExecuteReader())
                 {
                     while (reader.Read())

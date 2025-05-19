@@ -1140,7 +1140,7 @@ MonoBehaviour:
   playerController: {fileID: 1731853364}
   timeText: {fileID: 661281222}
   gameOverText: {fileID: 1158995387}
-  startTime: 10
+  startTime: 30
   scoreManager: {fileID: 843055445}
 --- !u!1 &1015797182
 GameObject:
@@ -6662,10 +6662,10 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 387396807}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 1, y: 0}
-  m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: -1030, y: 330}
-  m_SizeDelta: {x: 224.4, y: 184.702}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: -83.97666, y: -38.73545}
+  m_SizeDelta: {x: 433.719, y: 266.745}
   m_Pivot: {x: 0.30638, y: 0.35478473}
 --- !u!1 &1715660333
 GameObject:
