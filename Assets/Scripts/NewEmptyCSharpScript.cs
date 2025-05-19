@@ -1,11 +1,12 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class StartGame : MonoBehaviour
+public class BackToHome : MonoBehaviour
 {
-    public void LoadMainGame()
+    public string start = "start"; // Make sure your scene is named exactly "start"
+
+    public void GoToHome()
     {
-        SceneManager.LoadScene("Main Level"); // Replace with your actual scene name
+        SceneManager.LoadScene(start);
     }
 }
-
