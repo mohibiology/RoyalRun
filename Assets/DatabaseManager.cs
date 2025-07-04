@@ -1,11 +1,10 @@
 using UnityEngine;
-using System.Data;
-using Mono.Data.Sqlite;
-using Unity.VisualScripting;
-using System;
-using UnityEditor.MemoryProfiler;
-using TMPro;
 using UnityEngine.UI;
+using TMPro;
+using UnityEngine.Networking;
+using System.Collections;
+using System.Collections.Generic;
+
 public class DatabaseManager : MonoBehaviour
 {
     [SerializeField] GameObject scoreBoardPanel;
@@ -13,96 +12,103 @@ public class DatabaseManager : MonoBehaviour
     [SerializeField] TMP_Text score;
     [SerializeField] Button LeaderBoard;
     [SerializeField] Button backButton;
-    string dbName = "URI=file:ScoreRecord.db";
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+
+    private string baseUrl = "https://royalrunleaderboard.onrender.com";
+
+    private void Start()
     {
         string playerName = PlayerPrefs.GetString("PlayerName", "Guest");
         int finalScore = PlayerPrefs.GetInt("FinalScore", 0);
-        CreateDB();
-        AddScore(playerName, finalScore);
+
+        // Submit the score to the remote server
+        StartCoroutine(SubmitScore(playerName, finalScore));
+
         LeaderBoard.onClick.AddListener(ShowPanel);
         backButton.onClick.AddListener(ClosePanel);
-        
     }
+
     void ShowPanel()
     {
         scoreBoardPanel.gameObject.SetActive(true);
-        DisplayScore();
+        StartCoroutine(DisplayScore()); // Fetch leaderboard from API
     }
+
     void ClosePanel()
     {
         scoreBoardPanel.gameObject.SetActive(false);
     }
 
-    private void DisplayScore()
+    IEnumerator SubmitScore(string playerName, int finalScore)
+    {
+        string url = baseUrl + "/submit-score/";
+
+        ScoreData data = new ScoreData { name = playerName, score = finalScore };
+        string jsonData = JsonUtility.ToJson(data);
+
+        UnityWebRequest request = new UnityWebRequest(url, "POST");
+        byte[] bodyRaw = System.Text.Encoding.UTF8.GetBytes(jsonData);
+        request.uploadHandler = new UploadHandlerRaw(bodyRaw);
+        request.downloadHandler = new DownloadHandlerBuffer();
+        request.SetRequestHeader("Content-Type", "application/json");
+
+        yield return request.SendWebRequest();
+
+        if (request.result == UnityWebRequest.Result.Success)
+        {
+            Debug.Log("Score submitted successfully!");
+        }
+        else
+        {
+            Debug.Log("Error submitting score: " + request.error);
+        }
+    }
+
+    IEnumerator DisplayScore()
     {
         player.text = "";
         score.text = "";
 
-        using (var connection = new SqliteConnection(dbName))
+        string url = baseUrl + "/leaderboard/";
+
+        UnityWebRequest request = UnityWebRequest.Get(url);
+        yield return request.SendWebRequest();
+
+        if (request.result == UnityWebRequest.Result.Success)
         {
-            connection.Open();
-            using (var command1 = connection.CreateCommand())
+            string json = request.downloadHandler.text;
+            LeaderboardResponse response = JsonUtility.FromJson<LeaderboardResponse>("{\"entries\":" + json + "}");
+
+            foreach (var entry in response.entries)
             {
-                command1.CommandText = "SELECT UPPER(name) AS name FROM (SELECT name, MAX(score) AS max_score FROM scoreboard GROUP BY UPPER(name)) AS grouped_scores ORDER BY max_score DESC LIMIT 10;";
-                using (IDataReader reader = command1.ExecuteReader())
-                {
-                    while (reader.Read())
-                    {
-                        player.text += reader["name"] + "\n";
-                    }
-                    reader.Close();
-                }
+                player.text += entry.name.Replace(" ", "\u00A0").ToUpper() + "\n";
+                score.text += entry.score + "\n";
             }
-            using (var command2 = connection.CreateCommand())
-            {
-                command2.CommandText = "SELECT MAX(score) as max_score FROM scoreboard GROUP BY name ORDER BY max_score DESC LIMIT 10;";
-                using (IDataReader reader = command2.ExecuteReader())
-                {
-                    while (reader.Read())
-                    {
-                        score.text += reader["max_score"] + "\n";
-                    }
-                    reader.Close();
-                }
-            }
-            connection.Close();
+        }
+        else
+        {
+            Debug.Log("Error fetching leaderboard: " + request.error);
         }
     }
 
-    private void AddScore(string v1, int v2)
+    // Data class for submitting score
+    [System.Serializable]
+    public class ScoreData
     {
-        using (var connection = new SqliteConnection(dbName))
-        {
-            connection.Open();
-            using (var command = connection.CreateCommand())
-            {
-                command.CommandText = "INSERT INTO scoreboard (name, score) VALUES('" + v1 + "', '" + v2 + "');";
-                command.ExecuteNonQuery();
-            }
-            connection.Close();
-        }
-        
+        public string name;
+        public int score;
     }
 
-    // Update is called once per frame
-    void Update()
+    // Data classes for leaderboard response
+    [System.Serializable]
+    public class LeaderboardEntry
     {
-        
+        public string name;
+        public int score;
     }
-    public void CreateDB()
+
+    [System.Serializable]
+    public class LeaderboardResponse
     {
-        using (var connection = new SqliteConnection(dbName))
-        {
-            connection.Open();
-            using (var command = connection.CreateCommand())
-            {
-                command.CommandText = "CREATE TABLE IF NOT EXISTS scoreboard (name VARCHAR(20), score INT);";
-                command.ExecuteNonQuery();
-            }
-        }
+        public List<LeaderboardEntry> entries;
     }
 }
-
-

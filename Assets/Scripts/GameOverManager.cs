@@ -25,6 +25,6 @@ public class GameOverManager : MonoBehaviour
     }
     void GoHome()
     {
-        // SceneManager.LoadScene(homeSceneName);
+        SceneManager.LoadScene("start");
     }
 }

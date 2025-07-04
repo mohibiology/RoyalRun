@@ -30,6 +30,28 @@
                 {
                     "name": "up",
                     "id": "5552a405-38d8-457c-bfbf-4c4fdfe4b1f9",
+                    "path": "<Keyboard>/w",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Move",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "up",
+                    "id": "4b63843c-dec0-4747-8256-f83a646fed2c",
+                    "path": "<Keyboard>/upArrow",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Move",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "up",
+                    "id": "df39d180-67e1-48d8-be8d-307798a2cdfc",
                     "path": "<Keyboard>/space",
                     "interactions": "",
                     "processors": "",
